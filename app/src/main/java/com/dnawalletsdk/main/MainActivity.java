@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.dnawalletsdk.Data.DataUtil;
 import com.dnawalletsdk.Http.MyHandler;
@@ -194,7 +195,9 @@ public class MainActivity extends Activity  {
 			isr.close();
 			JSONObject json = new JSONObject(builder.toString());
 			JSONArray array = json.getJSONArray("host_info");
-			JSONObject nodeMsg = array.getJSONObject((int)(Math.random()*(10-1+1)));
+			Random random = new Random();
+			int index = random.nextInt(2);
+			JSONObject nodeMsg = array.getJSONObject(index);
 			node.hostName = nodeMsg.getString("hostName");
 			node.hostProvider = nodeMsg.getString("hostProvider");
 			node.restapi_host = nodeMsg.getString("restapi_host");
@@ -202,6 +205,7 @@ public class MainActivity extends Activity  {
 			node.webapi_host = nodeMsg.getString("webapi_host");
 			node.webapi_port = nodeMsg.getString("webapi_port");
 			node.node_type = nodeMsg.getString("node_type");
+
 
 		} catch (Exception e) {
 			e.printStackTrace();

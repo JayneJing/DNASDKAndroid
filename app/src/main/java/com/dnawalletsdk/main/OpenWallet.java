@@ -44,12 +44,16 @@ public class OpenWallet extends Activity  {
     class chooseAsset_OnClickListener implements OnClickListener  {  
         public void onClick(View v)  {  
     		AssetInfo assets[] = MainActivity.assets;
-    		String[] assetName = new String[assets.length];
-        	for(int i = 0 ; i <assets.length ; i++) {
-        		assetName[i] = assets[i].getAssetName();
-        	}
-        	
-        	showChooseAssetDialog(assetName);
+			if(assets.length>0) {
+				String[] assetName = new String[assets.length];
+				for (int i = 0; i < assets.length; i++) {
+					assetName[i] = assets[i].getAssetName();
+				}
+
+				showChooseAssetDialog(assetName);
+			}else{
+				Toast.makeText(OpenWalletActivity, getString(R.string.no_assest), Toast.LENGTH_LONG).show();
+			}
         }
     }
     

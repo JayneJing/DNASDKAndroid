@@ -75,24 +75,33 @@ public class AccountAsset {
 		
 		JSONArray AssetResult = response.getJSONArray("Result");
 		AssetInfo []assetInfo = new AssetInfo[AssetResult.length()];
-		
+
 		for (int i = 0 ; i < AssetResult.length() ; i ++) {
 			String assetResult =  AssetResult.getString(i);
 			JSONObject assetResultObj =  new JSONObject(assetResult);
-			
-			JSONArray Utxo = assetResultObj.getJSONArray("Utxo");
-			Double amount = 0.0;
-			for (int j = 0 ; j < Utxo.length() ; j ++) {
-				String utxo = Utxo.getString(j);
-				JSONObject utxoObj = new JSONObject(utxo);
-				amount = amount + utxoObj.getDouble("Value");
-			}
-			
-			String AssetId = assetResultObj.getString("AssetId");
-			String AssetName = assetResultObj.getString("AssetName");
-			AssetInfo Asset = new AssetInfo(AssetId,AssetName,amount,Utxo);
-			assetInfo[i] = Asset;
+			if(!assetResultObj.isNull("Utxo")){
+				JSONArray Utxo = assetResultObj.getJSONArray("Utxo");
+				Double amount = 0.0;
+				for (int j = 0 ; j < Utxo.length() ; j ++) {
+					String utxo = Utxo.getString(j);
+					JSONObject utxoObj = new JSONObject(utxo);
+					amount = amount + utxoObj.getDouble("Value");
+				}
 
+				String AssetId = assetResultObj.getString("AssetId");
+				String AssetName = assetResultObj.getString("AssetName");
+				AssetInfo Asset = new AssetInfo(AssetId,AssetName,amount,Utxo);
+				assetInfo[i] = Asset;
+			}else{
+				String AssetId = assetResultObj.getString("AssetId");
+				String AssetName = assetResultObj.getString("AssetName");
+				JSONArray Utxo = null;
+				AssetInfo Asset = new AssetInfo(AssetId,AssetName,0.0,Utxo);
+				assetInfo[i] = Asset;
+			}
+//			System.out.println(assetInfo[i].assetId);
+//			System.out.println(assetInfo[i].assetName);
+//			System.out.println(assetInfo[i].amount);
 		}
 		return assetInfo;
 

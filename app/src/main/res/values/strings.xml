@@ -33,6 +33,7 @@
     <!-- OpenWallet -->
     <string name="address_verification_false">地址验证失败。</string>
     <string name="no_enough_balance">没有足够的余额进行转账</string>
+    <string name="no_assest">暂无资产</string>
 
     <!-- WalletGenerate -->
     <string name="generate_wallet_success">生成钱包成功，钱包路径为：</string>

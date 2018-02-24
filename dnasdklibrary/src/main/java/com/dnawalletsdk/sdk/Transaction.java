@@ -159,7 +159,7 @@ public class Transaction {
 		
 	    for (int i = 0 ; i < coin_value.length - 1 ; i++) {
 	        for (int j = 0 ; j < coin_value.length - 1 - i ; j++) {
-	            if (coin_value[j]<coin_value[j + 1]) {
+	            if (coin_value[j]>coin_value[j + 1]) {
 	            	Double temp = coin_value[j];
 	            	coin_value[j] = coin_value[j + 1];
 	            	coin_value[j + 1] = temp;

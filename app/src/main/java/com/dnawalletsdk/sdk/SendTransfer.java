@@ -23,16 +23,16 @@ public class SendTransfer {
 	private static MyHandler mAPP = null;
 	private static MainHandler mHandler = null;
 	
-	public static void SignTxAndSend (String txData,byte[] publicKeyEncoded,byte[] privateKey) {
+	public static void SignTxAndSend (String txData,byte[] publicKeyEncoded,byte[] privateKey,NodeMsg node) {
 		
 		byte[] sign = Account.signatureData(txData,privateKey);
 		String txRawData = Transaction.AddContract(txData , sign , publicKeyEncoded);
 
-		SendTransactionData(txRawData);
+		SendTransactionData(txRawData,node);
 
 	}
 
-	public static void SendTransactionData(final String txRawData) {
+	public static void SendTransactionData(final String txRawData,final NodeMsg node) {
 		new Thread(new Runnable() {  
 			@Override  
 			public void run() {  
@@ -40,7 +40,8 @@ public class SendTransfer {
 			    try {
 		        	mAPP = (MyHandler) MainActivity.Main.getApplication();
 		    		mHandler = mAPP.getHandler();
-		            URL url = new URL("https://srv1.iptchain.net:10443/api/v1/transaction");
+					String nodeAPI = node.restapi_host+":"+node.restapi_port;
+					URL url = new URL(nodeAPI+"/api/v1/transaction");
 		            connection = (HttpURLConnection) url.openConnection();
 		            connection.setRequestMethod("POST");
 		            connection.setRequestProperty("Content-type", "application/json");

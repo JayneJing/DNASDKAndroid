@@ -36,6 +36,8 @@ public class OpenWallet extends Activity  {
 		transferAddressEditText = findViewById(R.id.transferAddress);
 		transferAssetAmountEditText = findViewById(R.id.transferAssetAmount);
 
+		transferAddressEditText.setText("ARi5hSjiKtNN9xhchHK9maC58973bcTaX3");
+
 		chooseAsset.setOnClickListener(new chooseAsset_OnClickListener());
 		transferSend.setOnClickListener(new transferSend_OnClickListener());
 	}
@@ -79,7 +81,7 @@ public class OpenWallet extends Activity  {
             	Toast.makeText(OpenWalletActivity, getString(R.string.no_enough_balance), Toast.LENGTH_LONG).show();
             }
             
-            SendTransfer.SignTxAndSend(txData,MainActivity.account.publicKeyEncoded,MainActivity.account.privateKey);
+            SendTransfer.SignTxAndSend(txData,MainActivity.account.publicKeyEncoded,MainActivity.account.privateKey,MainActivity.Node);
         }
     }
 
